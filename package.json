@@ -1,0 +1,15 @@
+{
+  "name": "passkeeper",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "mkdir -p dist && cp lib/index.js dist/index.js",
+    "test": "standard"
+  },
+  "author": "Tara Vancil",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^8.6.0"
+  }
+}
