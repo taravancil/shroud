@@ -11,5 +11,9 @@
   "license": "MIT",
   "devDependencies": {
     "standard": "^8.6.0"
+  },
+  "dependencies": {
+    "libsodium-wrappers": "^0.4.8",
+    "scrypt": "^6.0.3"
   }
 }
