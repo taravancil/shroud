@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "libsodium-wrappers": "^0.4.8",
-    "scrypt": "^6.0.3"
+    "scrypt": "^6.0.3",
+    "zerr": "^1.0.4"
   }
 }
