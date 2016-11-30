@@ -18,5 +18,12 @@
     "libsodium-wrappers": "^0.4.8",
     "scrypt": "^6.0.3",
     "zerr": "^1.0.4"
-  }
+  },
+  "keywords": [
+    "password",
+    "password manager",
+    "password vault",
+    "secret store",
+    "encrypted store"
+  ]
 }
