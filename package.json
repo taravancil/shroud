@@ -11,7 +11,10 @@
     "type": "git",
     "url": "https://github.com/taravancil/shroud"
   },
-  "author": "Tara Vancil",
+  "author": {
+    "name": "Tara Vancil",
+    "email": "tbvanc@gmail.com"
+  },
   "license": "MIT",
   "devDependencies": {
     "ava": "^0.17.0",
