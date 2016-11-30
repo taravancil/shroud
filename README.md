@@ -2,23 +2,26 @@
 
 [!standard code style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)
 
-## Example
+A module for encrypting and decrypting secrets with a master password, and
+managing them in a file-based vault.
+
+## Usage
 
 ```
 const config = {
-  dataFile: '/usr/shroudData', // default HOME_DIR/.shroud/data
-  vaultFile: '/usr/shroudVault', // default HOME_DIR/.shroud/vault
-  masterPassword: 'astrongmasterpassword'
+  dataDir: '/usr/shroudData', // optional, default HOME_DIR/.shroud
+  masterPassword: 'astrongmasterpassword' // required
 }
 
+// initialize shroud
 const shroud = require('shroud')(config)
 
-const github = {'github': 'a password'}
+// add a secret to the vault
+shroud.add({'sekrit.com': 'sekrit'})
 
-shroud.add(github)
+// decrypt a secret
+shroud.reveal('sekrit.com')
 
-const newGithub = {'github': 'a new password'}
-
-shroud.update(newGithub)
-shroud.remove('github')
+// remove a secret
+shroud.remove('sekrit.com')
 ```
