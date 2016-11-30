@@ -7,6 +7,10 @@
     "build": "mkdir -p dist && cp lib/index.js dist/index.js",
     "test": "standard && ava test/test.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taravancil/shroud"
+  },
   "author": "Tara Vancil",
   "license": "MIT",
   "devDependencies": {
