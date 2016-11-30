@@ -10,15 +10,14 @@ const {DuplicateSecret, SecretNotFound} = error
 const TEST_MASTER_PASSWORD = 'verygoodA+password'
 const TEST_SECRET_OBJ = {'sekrit.com': 'sekrit'}
 
-function init (salt) {
+function init () {
   // make a temp directory for each test's data files
   const tmpDir = path.join(__dirname, 'tmp', Math.random(8).toString(16))
   fs.mkdirSync(tmpDir)
 
   return Shroud({
     masterPassword: TEST_MASTER_PASSWORD,
-    dataDir: tmpDir,
-    salt: salt
+    dataDir: tmpDir
   })
 }
 
