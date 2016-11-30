@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "mkdir -p dist && cp lib/index.js dist/index.js",
-    "test": "standard"
+    "test": "standard && ava test/test.js"
   },
   "author": "Tara Vancil",
   "license": "MIT",
   "devDependencies": {
     "ava": "^0.17.0",
+    "fs-extra": "^1.0.0",
     "standard": "^8.6.0"
   },
   "dependencies": {
