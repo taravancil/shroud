@@ -1,6 +1,7 @@
 # Shroud
 
-[!standard code style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)
+[![standard code
+style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
 
 A module for encrypting and decrypting secrets with a master password, and
 managing them in a file-based vault.
