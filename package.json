@@ -10,6 +10,7 @@
   "author": "Tara Vancil",
   "license": "MIT",
   "devDependencies": {
+    "ava": "^0.17.0",
     "standard": "^8.6.0"
   },
   "dependencies": {
