@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib/index.js",
   "scripts": {
-    "build": "mkdir -p dist && cp lib/index.js dist/index.js",
+    "prepublish": "standard && ava test/test.js",
     "test": "standard && ava test/test.js"
   },
   "repository": {
