@@ -1,7 +1,7 @@
 {
   "name": "shroud",
   "version": "0.1.0",
-  "description": "",
+  "description": "Encrypt and decrypt secrets with a master password",
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "standard && ava test/test.js",
