@@ -17,6 +17,8 @@
 
 * `Data` and `Vault` now handle edge cases like failed `JSON.parse`s,
   reading non-existent files, etc.
+* Tmpfix for a bug where `scrypt` occasionally generated invalid
+  scryptParams by [hardcoding the values](https://github.com/taravancil/shroud/pull/1)
 
 ## 0.1.1 - 2016-11-29
 
