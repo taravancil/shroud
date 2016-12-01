@@ -50,7 +50,16 @@ test('initialize shroud', async t => {
 
 test('add a secret to the vault', async t => {
   const shroud = init()
-  const sealedSecretObj = await shroud.add(TEST_SECRET_OBJ)
+  t.notThrows(shroud.add(TEST_SECRET_OBJ))
+})
+
+test('get a secret from the vault', async t => {
+  const shroud = init()
+  const vault = Vault(shroud.dataDir)
+
+  await shroud.add(TEST_SECRET_OBJ)
+
+  const sealedSecretObj = vault.get('sekrit.com')
   const keys = ['sealedSecret', 'pubkey', 'salt']
 
   // check that the object has values set for all of the keys
