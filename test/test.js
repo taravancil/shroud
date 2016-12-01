@@ -2,10 +2,10 @@ const fs = require('fs')
 const fse = require('fs-extra')
 const path = require('path')
 const test = require('ava')
-const error = require('../dist/error.js')
-const Shroud = require('../dist/index.js')
 
-const {DuplicateSecret, SecretNotFound} = error
+const Shroud = require('../dist/index.js')
+const Vault = require('../dist/vault')
+const {DuplicateSecret, SecretNotFound} = require('../dist/error')
 
 const TEST_MASTER_PASSWORD = 'verygoodA+password'
 const TEST_SECRET_OBJ = {'sekrit.com': 'sekrit'}
