@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "prepublish": "standard && ava test/test.js",
-    "test": "standard && ava test/test.js"
+    "test": "ava test/test.js"
   },
   "repository": {
     "type": "git",
