@@ -29,14 +29,6 @@ test.after.always(t => {
   fse.removeSync(path.join(__dirname, 'tmp'))
 })
 
-test('add a duplicate secret to the vault', async t => {
-  const shroud = init()
-
-  await shroud.add(TEST_SECRET_OBJ)
-  const err = await t.throws(shroud.add(TEST_SECRET_OBJ))
-  t.true(err instanceof DuplicateSecret)
-})
-
 test('initialize shroud', async t => {
   const shroud = init()
   const data = shroud.data.read()
@@ -64,6 +56,14 @@ test('get a secret from the vault', async t => {
 
   // check that the object has values set for all of the keys
   keys.forEach(key => t.truthy(sealedSecretObj[key]))
+})
+
+test('add a duplicate secret to the vault', async t => {
+  const shroud = init()
+
+  await shroud.add(TEST_SECRET_OBJ)
+  const err = await t.throws(shroud.add(TEST_SECRET_OBJ))
+  t.true(err instanceof DuplicateSecret)
 })
 
 test('get a non-existent secret from the vault', async t => {
