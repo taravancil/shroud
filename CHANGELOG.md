@@ -6,6 +6,7 @@
 
 * This CHANGELOG file
 * `Shroud.add` now accepts a category param for organizing secrets by category
+* Set up Travis CI build
 
 ### Changed
 

@@ -1,0 +1,3 @@
+language: noed_js
+node_js:
+  - "node"
