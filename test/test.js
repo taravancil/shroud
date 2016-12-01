@@ -40,7 +40,7 @@ test('initialize shroud', async t => {
   keys.forEach(key => t.truthy(data[key]))
 })
 
-test('add a secret to the vault', async t => {
+test('add a secret to the vault', t => {
   const shroud = init()
   t.notThrows(shroud.add(TEST_SECRET_OBJ))
 })
