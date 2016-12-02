@@ -95,3 +95,15 @@ test('list the secrets in the vault', async t => {
   t.is(1, secretNames.length)
   t.is(secretNames[0], 'sekrit.com')
 })
+
+test('list secrets in the vault with a match pattern', async t => {
+  const shroud = init()
+
+  // add 2 secrets
+  await shroud.add(TEST_SECRET_OBJ)
+  await shroud.add({'BuTTs.com': 'butts'})
+
+  const secretNames = await shroud.list(null, 'butts')
+  t.is(1, secretNames.length)
+  t.is(secretNames[0], 'BuTTs.com')
+})
