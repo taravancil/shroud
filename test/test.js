@@ -80,3 +80,18 @@ test('decrypt a secret', async t => {
   const decrypted = await shroud.reveal(TEST_MASTER_PASSWORD, 'sekrit.com')
   t.is(decrypted, TEST_SECRET_OBJ['sekrit.com'])
 })
+
+test('list the secrets in the vault', async t => {
+  const shroud = init()
+
+  let secretNames = await shroud.list()
+  t.is(0, secretNames.length)
+
+  // add a secret with a category
+  await shroud.add(Object.assign({}, TEST_SECRET_OBJ, {category: 'test'}))
+  secretNames = await shroud.list('test')
+
+  // get the secret names in that category
+  t.is(1, secretNames.length)
+  t.is(secretNames[0], 'sekrit.com')
+})
