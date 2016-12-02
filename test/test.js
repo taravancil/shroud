@@ -58,19 +58,20 @@ test('get a secret from the vault', async t => {
   keys.forEach(key => t.truthy(sealedSecretObj[key]))
 })
 
+test('get a non-existent secret from the vault', t => {
+  const shroud = init()
+  const vault = Vault(shroud.dataDir)
+
+  const err = t.throws(() => vault.get('sekrit.com'))
+  t.true(err instanceof SecretNotFound)
+})
+
 test('add a duplicate secret to the vault', async t => {
   const shroud = init()
 
   await shroud.add(TEST_SECRET_OBJ)
   const err = await t.throws(shroud.add(TEST_SECRET_OBJ))
   t.true(err instanceof DuplicateSecret)
-})
-
-test('get a non-existent secret from the vault', async t => {
-  const shroud = init()
-
-  const err = await t.throws(shroud.reveal(TEST_MASTER_PASSWORD, 'sekrit.com'))
-  t.true(err instanceof SecretNotFound)
 })
 
 test('decrypt a secret', async t => {
