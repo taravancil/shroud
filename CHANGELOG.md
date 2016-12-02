@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.2.0 -- 2016-12-02
+
+### Added
+
+* `Shroud.list` returns a list of the secret names in the vault, filtered by
+  category, pattern, or not at all
+
 ## 0.1.3 -- 2016-12-01
 
 ### Changed
