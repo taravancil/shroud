@@ -9,19 +9,19 @@ managing them in a file-based vault.
 ## Usage
 
 ```
-const config = {
+const opts = {
   dataDir: '/usr/shroudData', // optional, default HOME_DIR/.shroud
-  masterPassword: 'astrongmasterpassword' // required
+  masterPassword: 'astrongmasterpassword' // required if not initialized
 }
 
 // initialize shroud
-const shroud = require('shroud')(config)
+const shroud = require('shroud')(opts)
 
 // add a secret to the vault
 shroud.add({'sekrit.com': 'sekrit'})
 
 // decrypt a secret
-shroud.reveal('sekrit.com')
+shroud.reveal('sekrit.com', 'astrongmasterpassword')
 
 // remove a secret
 shroud.remove('sekrit.com')

@@ -69,13 +69,13 @@ test('add a duplicate secret to the vault', async t => {
 test('get a non-existent secret from the vault', async t => {
   const shroud = init()
 
-  const err = await t.throws(shroud.reveal('sekrit.com'))
+  const err = await t.throws(shroud.reveal(TEST_MASTER_PASSWORD, 'sekrit.com'))
   t.true(err instanceof SecretNotFound)
 })
 
 test('decrypt a secret', async t => {
   const shroud = init()
   await shroud.add(TEST_SECRET_OBJ)
-  const decrypted = await shroud.reveal('sekrit.com')
+  const decrypted = await shroud.reveal(TEST_MASTER_PASSWORD, 'sekrit.com')
   t.is(decrypted, TEST_SECRET_OBJ['sekrit.com'])
 })
