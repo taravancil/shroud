@@ -25,4 +25,16 @@ shroud.reveal('sekrit.com', 'astrongmasterpassword')
 
 // remove a secret
 shroud.remove('sekrit.com')
+
+// list all secrets
+shroud.list()
+
+// list all secrets by category()
+shroud.list('work')
+
+// list secrets that match a pattern
+const category = ''
+const pattern = 'sekrit'
+shroud.list(category, pattern)
 ```
+
