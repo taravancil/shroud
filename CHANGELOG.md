@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.3.0 -- 2016-12-04
+
+### Changed
+
+* `Shroud.add` now takes the params `[name, category, secret]` instead of a
+  secret Object
+
 ## 0.2.0 -- 2016-12-02
 
 ### Added

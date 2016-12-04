@@ -8,7 +8,6 @@ const Vault = require('../lib/vault')
 const {DuplicateSecret, SecretNotFound} = require('../lib/error')
 
 const TEST_MASTER_PASSWORD = 'verygoodA+password'
-const TEST_SECRET_OBJ = {'sekrit.com': 'sekrit'}
 
 function init () {
   // make a temp directory for each test's data files
@@ -42,14 +41,14 @@ test('initialize shroud', async t => {
 
 test('add a secret to the vault', t => {
   const shroud = init()
-  t.notThrows(shroud.add(TEST_SECRET_OBJ))
+  t.notThrows(shroud.add('sekrit.com', null, 'sekrit'))
 })
 
 test('get a secret from the vault', async t => {
   const shroud = init()
   const vault = Vault(shroud.dataDir)
 
-  await shroud.add(TEST_SECRET_OBJ)
+  await shroud.add('sekrit.com', null, 'sekrit')
 
   const sealedSecretObj = vault.get('sekrit.com')
   const keys = ['sealedSecret', 'pubkey', 'salt']
@@ -69,16 +68,16 @@ test('get a non-existent secret from the vault', t => {
 test('add a duplicate secret to the vault', async t => {
   const shroud = init()
 
-  await shroud.add(TEST_SECRET_OBJ)
-  const err = await t.throws(shroud.add(TEST_SECRET_OBJ))
+  await shroud.add('sekrit.com', null, 'sekrit')
+  const err = await t.throws(shroud.add('sekrit.com', null, 'sekrit'))
   t.true(err instanceof DuplicateSecret)
 })
 
 test('decrypt a secret', async t => {
   const shroud = init()
-  await shroud.add(TEST_SECRET_OBJ)
+  await shroud.add('sekrit.com', null, 'sekrit')
   const decrypted = await shroud.reveal(TEST_MASTER_PASSWORD, 'sekrit.com')
-  t.is(decrypted, TEST_SECRET_OBJ['sekrit.com'])
+  t.is(decrypted, 'sekrit')
 })
 
 test('list the secrets in the vault', async t => {
@@ -88,8 +87,8 @@ test('list the secrets in the vault', async t => {
   t.is(0, secretNames.length)
 
   // add a secret with a category
-  await shroud.add(Object.assign({}, TEST_SECRET_OBJ, {category: 'test'}))
-  secretNames = await shroud.list('test')
+  await shroud.add('sekrit.com', 'sekrits', 'sekrit')
+  secretNames = await shroud.list('sekrits')
 
   // get the secret names in that category
   t.is(1, secretNames.length)
@@ -100,8 +99,8 @@ test('list secrets in the vault with a match pattern', async t => {
   const shroud = init()
 
   // add 2 secrets
-  await shroud.add(TEST_SECRET_OBJ)
-  await shroud.add({'BuTTs.com': 'butts'})
+  await shroud.add('sekrit.com', null, 'sekrit')
+  await shroud.add('BuTTs.com', null, 'butts')
 
   const secretNames = await shroud.list(null, 'butts')
   t.is(1, secretNames.length)

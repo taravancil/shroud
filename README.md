@@ -18,7 +18,10 @@ const opts = {
 const shroud = require('shroud')(opts)
 
 // add a secret to the vault
-shroud.add({'sekrit.com': 'sekrit'})
+shroud.add('sekrit.com', null, 'sekrit')
+
+// add a secret with a categry
+shroud.add('sekrit.com', 'sekrits', 'sekrit')
 
 // decrypt a secret
 shroud.reveal('sekrit.com', 'astrongmasterpassword')
