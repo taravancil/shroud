@@ -86,13 +86,22 @@ test('list the secrets in the vault', async t => {
   let secretNames = await shroud.list()
   t.is(0, secretNames.length)
 
-  // add a secret with a category
-  await shroud.add('sekrit.com', 'sekrits', 'sekrit')
-  secretNames = await shroud.list('sekrits')
+  await shroud.add('sekrit.com', null, 'sekrit')
 
-  // get the secret names in that category
+  secretNames = await shroud.list()
+  t.is('sekrit.com', secretNames[0])
+})
+
+test('list categorized secrets in the vault', async t => {
+  const shroud = init()
+
+  // a secret with a category
+  await shroud.add('sekrit.com', 'sekrits', 'sekrit')
+
+  // list the secrets by category
+  let secretNames = await shroud.list('sekrits')
   t.is(1, secretNames.length)
-  t.is(secretNames[0], 'sekrit.com')
+  t.is('sekrit.com', secretNames[0])
 })
 
 test('list secrets in the vault with a match pattern', async t => {
