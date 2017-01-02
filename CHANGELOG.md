@@ -1,5 +1,21 @@
 # Change Log
 
+## 0.4.0 -- 2017-01-01
+
+### Added
+
+* Added `Shroud.update` to update an existing secret
+
+### Fixed
+
+* `Shroud.reveal` passes the category param to `Vault.get`
+* `Shroud.list` properly lists categorized secrets
+
+### Changed
+
+* Encrypting and decrypting secrets now happens with `crypto_box`, libsodium's
+  interface for doing authenticated encryption.
+
 ## 0.3.0 -- 2016-12-04
 
 ### Changed
