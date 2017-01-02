@@ -115,3 +115,16 @@ test('list secrets in the vault with a match pattern', async t => {
   t.is(1, secretNames.length)
   t.is(secretNames[0], 'BuTTs.com')
 })
+
+test('update an existing secret', async t => {
+  const shroud = init()
+
+  // add the secret
+  await shroud.add('sekrit.com', null, 'sekrit')
+
+  // update the secret
+  await shroud.update('sekrit.com', null, 'newSekrit')
+
+  const decrypted = await shroud.reveal(TEST_MASTER_PASSWORD, 'sekrit.com')
+  t.is(decrypted, 'newSekrit')
+})
