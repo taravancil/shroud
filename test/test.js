@@ -84,12 +84,12 @@ test('list the secrets in the vault', async t => {
   const shroud = init()
 
   let secretNames = await shroud.list()
-  t.is(0, secretNames.length)
+  t.is(0, secretNames['uncategorized'].length)
 
   await shroud.add('sekrit.com', null, 'sekrit')
 
   secretNames = await shroud.list()
-  t.is('sekrit.com', secretNames[0])
+  t.true(secretNames['uncategorized'].includes('sekrit.com'))
 })
 
 test('list categorized secrets in the vault', async t => {
@@ -100,20 +100,20 @@ test('list categorized secrets in the vault', async t => {
 
   // list the secrets by category
   let secretNames = await shroud.list('sekrits')
-  t.is(1, secretNames.length)
-  t.is('sekrit.com', secretNames[0])
+  t.is(1, secretNames['sekrits'].length)
+  t.true(secretNames['sekrits'].includes('sekrit.com'))
 })
 
 test('list secrets in the vault with a match pattern', async t => {
   const shroud = init()
 
   // add 2 secrets
-  await shroud.add('sekrit.com', null, 'sekrit')
+  await shroud.add('BuTTs.com', 'butts', 'butts')
   await shroud.add('BuTTs.com', null, 'butts')
 
   const secretNames = await shroud.list(null, 'butts')
-  t.is(1, secretNames.length)
-  t.is(secretNames[0], 'BuTTs.com')
+  t.true(secretNames['uncategorized'].includes('BuTTs.com'))
+  t.true(secretNames['butts'].includes('BuTTs.com'))
 })
 
 test('update an existing secret', async t => {
