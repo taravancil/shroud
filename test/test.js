@@ -8,6 +8,7 @@ const Vault = require('../lib/vault')
 const {DuplicateSecret, SecretNotFound} = require('../lib/error')
 
 const TEST_MASTER_PASSWORD = 'verygoodA+password'
+const TEST_SECRET = {name: 'sekrit.com', secret: 'sekrit'}
 
 function init () {
   // make a temp directory for each test's data files
@@ -41,14 +42,14 @@ test('initialize shroud', async t => {
 
 test('add a secret to the vault', t => {
   const shroud = init()
-  t.notThrows(shroud.add('sekrit.com', null, 'sekrit'))
+  t.notThrows(shroud.add(TEST_SECRET))
 })
 
 test('get a secret from the vault', async t => {
   const shroud = init()
   const vault = Vault(shroud.dataDir)
 
-  await shroud.add('sekrit.com', null, 'sekrit')
+  await shroud.add(TEST_SECRET)
 
   const sealedSecretObj = vault.get('sekrit.com')
   const keys = ['sealedSecret', 'pubkey', 'salt']
@@ -68,14 +69,14 @@ test('get a non-existent secret from the vault', t => {
 test('add a duplicate secret to the vault', async t => {
   const shroud = init()
 
-  await shroud.add('sekrit.com', null, 'sekrit')
-  const err = await t.throws(shroud.add('sekrit.com', null, 'sekrit'))
+  await shroud.add(TEST_SECRET)
+  const err = await t.throws(shroud.add(TEST_SECRET))
   t.true(err instanceof DuplicateSecret)
 })
 
 test('decrypt a secret', async t => {
   const shroud = init()
-  await shroud.add('sekrit.com', null, 'sekrit')
+  await shroud.add(TEST_SECRET)
   const decrypted = await shroud.reveal(TEST_MASTER_PASSWORD, 'sekrit.com')
   t.is(decrypted, 'sekrit')
 })
@@ -86,7 +87,7 @@ test('list the secrets in the vault', async t => {
   let secretNames = await shroud.list()
   t.is(0, secretNames['uncategorized'].length)
 
-  await shroud.add('sekrit.com', null, 'sekrit')
+  await shroud.add(TEST_SECRET)
 
   secretNames = await shroud.list()
   t.true(secretNames['uncategorized'].includes('sekrit.com'))
@@ -96,7 +97,11 @@ test('list categorized secrets in the vault', async t => {
   const shroud = init()
 
   // a secret with a category
-  await shroud.add('sekrit.com', 'sekrits', 'sekrit')
+  const categorizedSecret = Object.assign(
+    {category: 'sekrits'},
+    TEST_SECRET)
+
+  await shroud.add(categorizedSecret)
 
   // list the secrets by category
   let secretNames = await shroud.list('sekrits')
@@ -107,9 +112,9 @@ test('list categorized secrets in the vault', async t => {
 test('list secrets in the vault with a match pattern', async t => {
   const shroud = init()
 
-  // add 2 secrets
-  await shroud.add('BuTTs.com', 'butts', 'butts')
-  await shroud.add('BuTTs.com', null, 'butts')
+  // add 2 secrets that will match 'butts' filter
+  await shroud.add({name: 'BuTTs.com', category: 'butts', secret: 'butts'})
+  await shroud.add({name: 'BuTTs.com', secret: 'butts'})
 
   const secretNames = await shroud.list(null, 'butts')
   t.true(secretNames['uncategorized'].includes('BuTTs.com'))
@@ -120,7 +125,7 @@ test('update an existing secret', async t => {
   const shroud = init()
 
   // add the secret
-  await shroud.add('sekrit.com', null, 'sekrit')
+  await shroud.add(TEST_SECRET)
 
   // update the secret
   await shroud.update('sekrit.com', null, 'newSekrit')
