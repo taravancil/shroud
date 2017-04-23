@@ -18,10 +18,10 @@ const opts = {
 const shroud = require('shroud')(opts)
 
 // add a secret to the vault
-shroud.add('sekrit.com', null, 'sekrit')
+shroud.add({name: 'sekrit.com', secret: 'sekrit'})
 
-// add a secret with a categry
-shroud.add('sekrit.com', 'sekrits', 'sekrit')
+// add a secret with a category
+shroud.add({name: 'sekrit.com', secret: 'sekrit', category: 'work'})
 
 // decrypt a secret
 shroud.reveal('sekrit.com', 'astrongmasterpassword')
@@ -33,11 +33,8 @@ shroud.remove('sekrit.com')
 shroud.list()
 
 // list all secrets by category()
-shroud.list('work')
+shroud.list({category: 'work'})
 
-// list secrets that match a pattern
-const category = ''
-const pattern = 'sekrit'
-shroud.list(category, pattern)
+// list secrets that match a pattern (case-insensitive)
+shroud.list({pattern: 'SekRit'})
 ```
-
