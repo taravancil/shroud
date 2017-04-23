@@ -1,6 +1,6 @@
 {
   "name": "shroud",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Encrypt and decrypt secrets with a master password",
   "main": "lib/index.js",
   "scripts": {
