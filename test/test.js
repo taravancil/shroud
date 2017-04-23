@@ -5,7 +5,7 @@ const test = require('ava')
 
 const Shroud = require('../lib/index.js')
 const Vault = require('../lib/vault')
-const {DuplicateSecret, SecretNotFound} = require('../lib/error')
+const {DuplicateSecret, SecretNotFound, CategoryNotFound} = require('../lib/error')
 
 const TEST_MASTER_PASSWORD = 'verygoodA+password'
 const TEST_SECRET = {name: 'sekrit.com', secret: 'sekrit'}
@@ -119,6 +119,13 @@ test('list secrets in the vault with a match pattern', async t => {
   const secretNames = await shroud.list({pattern: 'butts'})
   t.true(secretNames['uncategorized'].includes('BuTTs.com'))
   t.true(secretNames['butts'].includes('BuTTs.com'))
+})
+
+test('list a non-existent category', async t => {
+  const shroud = init()
+
+  const err = await t.throws(shroud.list({category: 'boox'}))
+  t.true(err instanceof CategoryNotFound)
 })
 
 test('update an existing secret', async t => {
