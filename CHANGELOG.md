@@ -1,5 +1,29 @@
 # Change Log
 
+## 0.6.0 -- 2017-04-22
+
+### Fixed
+
+* Trying to list by a non existent category now throws an error.
+
+### Changed
+
+* `Shroud.add` now accepts an object with required properties `name` and
+  `secret`, and the optional property `category`
+* `Shroud.list` now optionally accepts an object with the optional
+  properties `pattern` and `category`
+
+## 0.5.0 -- 2017-01-08
+
+### Fixed
+
+* `Shroud.list` properly filters categorized secrets by a match pattern
+
+### Changed
+
+* `Shroud.list` now returns an object with at least one property `uncategorized`
+  and other properties that are category names
+
 ## 0.4.0 -- 2017-01-01
 
 ### Added
