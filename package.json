@@ -7,6 +7,9 @@
     "prepublish": "standard && ava test/test.js",
     "test": "ava test/test.js"
   },
+  "standard": {
+    "ignore": ["test"]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/taravancil/shroud"
