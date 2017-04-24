@@ -29,6 +29,9 @@ shroud.reveal('sekrit.com', 'astrongmasterpassword')
 // remove a secret
 shroud.remove('sekrit.com')
 
+// update a secret
+shroud.update({name: 'sekrit.com', secret: 'newSekrit'})
+
 // list all secrets
 shroud.list()
 

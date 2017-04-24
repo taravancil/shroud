@@ -135,7 +135,7 @@ test('update an existing secret', async t => {
   await shroud.add(TEST_SECRET)
 
   // update the secret
-  await shroud.update('sekrit.com', null, 'newSekrit')
+  await shroud.update({name: 'sekrit.com', secret: 'newSekrit'})
 
   const decrypted = await shroud.reveal(TEST_MASTER_PASSWORD, 'sekrit.com')
   t.is(decrypted, 'newSekrit')
