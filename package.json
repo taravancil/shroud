@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "libsodium-wrappers": "^0.4.8",
+    "sanitize-filename": "^1.6.1",
     "scrypt": "^6.0.3",
     "zerr": "^1.0.4"
   },
