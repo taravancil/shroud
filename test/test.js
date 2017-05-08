@@ -129,9 +129,45 @@ test('update an existing secret', async t => {
   // add the secret
   await shroud.add(TEST_SECRET)
 
-  // update the secret
+  //  the secret
   await shroud.update({name: 'sekrit.com', secret: 'newSekrit'})
 
   const decrypted = await shroud.reveal(TEST_MASTER_PASSWORD, 'sekrit.com')
   t.is(decrypted, 'newSekrit')
+})
+
+test('remove a secret', async t => {
+  const shroud = init()
+
+  await shroud.add(TEST_SECRET)
+  await shroud.remove(TEST_SECRET)
+
+  t.deepEqual({uncategorized: []}, await shroud.list())
+})
+
+test('remove a categorized secret', async t => {
+  const shroud = init()
+
+  await shroud.add(TEST_SECRET_CATEGORIZED)
+  await shroud.remove(TEST_SECRET_CATEGORIZED)
+
+  t.deepEqual({uncategorized: []}, await shroud.list())
+})
+
+test('delete a category directory after removing the last secret in that category', async t => {
+  const shroud = init()
+
+  // add a categorized secret
+  await shroud.add(TEST_SECRET_CATEGORIZED)
+  await shroud.remove(TEST_SECRET_CATEGORIZED)
+
+  t.false(TEST_SECRET_CATEGORIZED.category in await shroud.list())
+})
+
+test('should not be able to add a secret with forbidden characters in name', async t => {
+  const shroud = init()
+
+  await shroud.add({name: '/badname', secret: 'test'})
+  const secrets = await shroud.list()
+  t.is(secrets.uncategorized[0], 'badname')
 })
