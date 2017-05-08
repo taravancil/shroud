@@ -9,6 +9,7 @@ const {DuplicateSecret, SecretNotFound, CategoryNotFound} = require('../lib/erro
 
 const TEST_MASTER_PASSWORD = 'verygoodA+password'
 const TEST_SECRET = {name: 'sekrit.com', secret: 'sekrit'}
+const TEST_SECRET_CATEGORIZED = Object.assign({category: 'sekrits'}, TEST_SECRET)
 
 function init () {
   // make a temp directory for each test's data files
@@ -95,18 +96,12 @@ test('list the secrets in the vault', async t => {
 
 test('list categorized secrets in the vault', async t => {
   const shroud = init()
-
-  // a secret with a category
-  const categorizedSecret = Object.assign(
-    {category: 'sekrits'},
-    TEST_SECRET)
-
-  await shroud.add(categorizedSecret)
+  await shroud.add(TEST_SECRET_CATEGORIZED)
 
   // list the secrets by category
   let secretNames = await shroud.list({category: 'sekrits'})
   t.is(1, secretNames['sekrits'].length)
-  t.true(secretNames['sekrits'].includes('sekrit.com'))
+  t.deepEqual({sekrits: [TEST_SECRET_CATEGORIZED.name]}, secretNames)
 })
 
 test('list secrets in the vault with a match pattern', async t => {
