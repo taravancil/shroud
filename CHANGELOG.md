@@ -1,4 +1,14 @@
 # Change Log
+## 0.6.3 -- 2017-05-07
+
+### Changed
+
+* Secret names and categories no longer allow forbidden characters as the
+  file name.
+
+### Fixed
+* `Shroud.remove` now deletes a category after removing the last secret from
+  a category.
 
 ## 0.6.2 -- 2017-04-22
 
