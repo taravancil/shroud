@@ -119,7 +119,7 @@ test('list secrets in the vault with a match pattern', async t => {
 test('list a non-existent category', async t => {
   const shroud = init()
 
-  const err = await t.throws(shroud.list({category: 'boox'}))
+  const err = await t.throws(shroud.list({category: 'notfound'}))
   t.true(err instanceof CategoryNotFound)
 })
 
