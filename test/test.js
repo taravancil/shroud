@@ -110,10 +110,12 @@ test('list secrets in the vault with a match pattern', async t => {
   // add 2 secrets that will match 'butts' filter
   await shroud.add({name: 'BuTTs.com', category: 'butts', secret: 'butts'})
   await shroud.add({name: 'BuTTs.com', secret: 'butts'})
+  await shroud.add({name: 'booty.com', category: 'booties', secret: 'booty'})
 
   const secretNames = await shroud.list({pattern: 'butts'})
   t.true(secretNames['uncategorized'].includes('BuTTs.com'))
   t.true(secretNames['butts'].includes('BuTTs.com'))
+  t.false('booties' in secretNames)
 })
 
 test('list a non-existent category', async t => {
