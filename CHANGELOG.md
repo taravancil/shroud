@@ -1,5 +1,22 @@
 # Change Log
 
+## 0.6.2 -- 2017-04-22
+
+### Changed
+
+* `Shroud.update` now takes an object with required properties `name` and
+  `secret`, and optional property `category`
+* `Shroud.remove` now takes an object with required property `name` and optional
+  property `category`
+
+### Fixed
+
+## 0.6.1 -- 2017-04-22
+
+### Changed
+
+Updated README
+
 ## 0.6.0 -- 2017-04-22
 
 ### Fixed
